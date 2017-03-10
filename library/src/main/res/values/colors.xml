@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="list_blank_bg">#EEEEEE</color>
+    <color name="list_normal_bg">#FFFFFF</color>
+    <color name="item_select_color">#EEEEEE</color>
+    <color name="item_normal_color">#FFFFFF</color>
+    <color name="item_text_select_color">#009688</color>
+    <color name="item_text_normal_color">#8A000000</color>
+    <color name="classicTextItemClickColor">#21000000</color>
+</resources>
