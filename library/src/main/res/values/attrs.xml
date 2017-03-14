@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="ClassicSelectView">
-        <attr name="classic_select_view_margin" format="dimension|reference"/>
+        <attr name="classic_select_view_margin_left" format="dimension|reference"/>
+        <attr name="classic_select_view_margin_right" format="dimension|reference"/>
     </declare-styleable>
 </resources>
