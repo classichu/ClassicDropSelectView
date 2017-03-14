@@ -5,13 +5,14 @@ import android.content.Context;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
 
 import com.classichu.dropselectview.R;
-import com.classichu.dropselectview.tool.StringTool;
 import com.classichu.dropselectview.bean.ClassfiyBean;
+import com.classichu.dropselectview.tool.StringTool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +65,7 @@ public class ClassicSelectView extends AppCompatTextView implements View.OnClick
 
     private void initInnerData() {
         mClassfiyBeanList = new ArrayList<>();
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 5; i++) {
             ClassfiyBean classfiyBean = new ClassfiyBean();
             classfiyBean.setID(i);
             classfiyBean.setBeanID(FIX_KEY_DEFAULT + i);
@@ -96,9 +97,14 @@ public class ClassicSelectView extends AppCompatTextView implements View.OnClick
             this.setPadding(paddingLeft_Right, paddingTop_Bottom, paddingLeft_Right, paddingTop_Bottom);
         }
         this.setOnClickListener(this);
+        if (this.getCompoundDrawables()[2]==null){
         this.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_expand_more_black_24dp, 0);
-        this.setBackgroundResource(R.drawable.selector_classic_text_item_bg);
-        this.setSingleLine();
+        }
+        if (this.getBackground()==null) {
+            this.setBackgroundResource(R.drawable.selector_classic_text_item_bg);
+        }
+        this.setGravity(Gravity.CENTER_VERTICAL);
+       // this.setSingleLine();
     }
 
     @Override
