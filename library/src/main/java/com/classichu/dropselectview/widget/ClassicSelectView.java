@@ -7,7 +7,6 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.PopupWindow;
 
 import com.classichu.dropselectview.R;
@@ -103,13 +102,15 @@ public class ClassicSelectView extends AppCompatTextView implements View.OnClick
         if (this.getBackground()==null) {
             this.setBackgroundResource(R.drawable.selector_classic_text_item_bg);
         }
-        this.setGravity(Gravity.CENTER_VERTICAL);
+        if(this.getGravity()==(Gravity.TOP|Gravity.START)){
+            this.setGravity(Gravity.CENTER_VERTICAL);
+        }
        // this.setSingleLine();
     }
 
     @Override
     public void onClick(final View v) {
-       bgShow();//
+      //### bgShow();//
 
         if (onContentViewChangeListener != null) {
             onContentViewChangeListener.onContentViewShow();
@@ -148,27 +149,13 @@ public class ClassicSelectView extends AppCompatTextView implements View.OnClick
         myPopupwindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-                 bgClear(); //
+             //####    bgClear(); //
                 if (onContentViewChangeListener != null) {
                     onContentViewChangeListener.onContentViewDismiss();
                 }
             }
         });
 
-    }
-
-    // 设置背景颜色变暗
-    void bgShow() {
-        WindowManager.LayoutParams lp = ((Activity) mContext).getWindow().getAttributes();
-        lp.alpha = 0.9f; // 0.0-1.0
-        ((Activity) mContext).getWindow().setAttributes(lp);
-    }
-
-    void bgClear() {
-        WindowManager.LayoutParams lp = ((Activity) mContext).getWindow()
-                .getAttributes();
-        lp.alpha = 1.0f; // 0.0-1.0
-        ((Activity) mContext).getWindow().setAttributes(lp);
     }
 
     public interface OnContentViewChangeListener {
