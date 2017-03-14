@@ -2,6 +2,7 @@ package com.classichu.dropselectview.widget;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -30,6 +31,7 @@ public class ClassicSelectView extends AppCompatTextView implements View.OnClick
     String mDefaultKey = "";
     String mShowName = "";
     int mListMaxHeight;
+    int mClassicSelectPopupWindowMargin;
     public final String DEFAULT_NAME = "全部分类";
 
     public ClassicSelectView(Context context) {
@@ -45,6 +47,11 @@ public class ClassicSelectView extends AppCompatTextView implements View.OnClick
         mContext = context;
         initInnerData();
         initView();
+        TypedArray typedArray=context.obtainStyledAttributes(attrs,R.styleable.ClassicSelectView);
+        mClassicSelectPopupWindowMargin=typedArray.getDimensionPixelSize(
+                R.styleable.ClassicSelectView_classic_select_view_margin,1);
+        typedArray.recycle();
+
     }
 
     /**
@@ -120,7 +127,7 @@ public class ClassicSelectView extends AppCompatTextView implements View.OnClick
         if (v.getTag() != null) {
             mDefaultKey = String.valueOf(v.getTag());
         }
-        myPopupwindow = new ClassicSelectPopupWindow(mContext, mClassfiyBeanList, mDefaultKey, mListMaxHeight);
+        myPopupwindow = new ClassicSelectPopupWindow(mContext, mClassfiyBeanList, mDefaultKey, mListMaxHeight,mClassicSelectPopupWindowMargin);
 
         //  myPopupwindow.set
 

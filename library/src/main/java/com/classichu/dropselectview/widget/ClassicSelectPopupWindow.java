@@ -36,6 +36,7 @@ public class ClassicSelectPopupWindow extends PopupWindow {
     String key_parent = "";
     String key_child = "";
     int mListMaxHeight;
+    int mClassicSelectPopupWindowMargin;
     RecyclerView id_rv_left;
     RecyclerView id_rv_right;
     MyRecylerViewLeftAdapter myRecylerViewAdapter;
@@ -44,12 +45,13 @@ public class ClassicSelectPopupWindow extends PopupWindow {
     String mDefaultKey = "";
     boolean mOnlyOneList = false;
 
-    public ClassicSelectPopupWindow(Context context, List<ClassfiyBean> classfiyBeanList, String defaultKey, int listMaxHeight) {
+    public ClassicSelectPopupWindow(Context context, List<ClassfiyBean> classfiyBeanList, String defaultKey, int listMaxHeight,int classicSelectPopupWindowMargin) {
         super(context);
         mContext = context;
         mClassfiyBeanList = classfiyBeanList;
         mDefaultKey = defaultKey;
         mListMaxHeight = listMaxHeight;
+        mClassicSelectPopupWindowMargin = classicSelectPopupWindowMargin;
         Log.d(TAG, "dealDefaultKey: mDefaultKey:" + mDefaultKey);
         dealDefaultKey();
         initView();
@@ -109,6 +111,10 @@ public class ClassicSelectPopupWindow extends PopupWindow {
         }
 
         View view = LayoutInflater.from(mContext).inflate(R.layout.layout_popupwindow_selectview, null);
+ /*  实在是无效     ViewGroup.MarginLayoutParams marginLayoutParams= new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        marginLayoutParams.setMargins(dp2px(mContext,mClassicSelectPopupWindowMargin),0,dp2px(mContext,mClassicSelectPopupWindowMargin),0);
+        view.setLayoutParams(marginLayoutParams);*/
+        view.setPadding(mClassicSelectPopupWindowMargin,0,mClassicSelectPopupWindowMargin,0);
         id_rv_left = (RecyclerView) view.findViewById(R.id.id_rv_left);
         id_rv_left.setHasFixedSize(true);//位置固定大小 //2016年8月12日16:41:18  这里的用意：不用的话点击后面的item 然后马上会滚动一段，因为如果item的内容会改变view布局大小
         id_rv_left.setLayoutManager(new LinearLayoutManager(mContext));
@@ -248,4 +254,5 @@ public class ClassicSelectPopupWindow extends PopupWindow {
     }
 
     OnItemSelectedListener onItemSelectedListener;
+
 }

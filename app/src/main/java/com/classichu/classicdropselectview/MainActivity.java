@@ -25,6 +25,6 @@ public class MainActivity extends AppCompatActivity {
             classfiyBean.setName("test"+i);
              cblist.add(classfiyBean);
         }
-       classicSelectView.setupClassfiyBeanList(cblist);
+      //### classicSelectView.setupClassfiyBeanList(cblist);
     }
 }
