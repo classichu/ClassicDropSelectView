@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
              cblist.add(classfiyBean);
         }
         classicSelectView.setSelectViewMarginLeft(30);
+        classicSelectView.setOnSelectViewStatusChangeListener(new ClassicSelectView.OnSelectViewStatusChangeListener() {
+        });
       //### classicSelectView.setupClassfiyBeanList(cblist);
     }
 }

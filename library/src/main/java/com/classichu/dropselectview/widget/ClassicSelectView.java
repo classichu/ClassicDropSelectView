@@ -30,7 +30,7 @@ public class ClassicSelectView extends AppCompatTextView implements View.OnClick
     ClassicSelectPopupWindow myPopupwindow;
     String mDefaultKey = "";
     String mShowName = "";
-    int mListMaxHeight;
+    int mSelectViewContentMaxHeight;
     int mSelectViewMarginLeft;
     int mSelectViewMarginRight;
     public final String DEFAULT_NAME = "全部分类";
@@ -53,6 +53,8 @@ public class ClassicSelectView extends AppCompatTextView implements View.OnClick
                 R.styleable.ClassicSelectView_classic_select_view_margin_left,1);
         mSelectViewMarginRight=typedArray.getDimensionPixelSize(
                 R.styleable.ClassicSelectView_classic_select_view_margin_right,1);
+        mSelectViewContentMaxHeight=typedArray.getDimensionPixelSize(
+                R.styleable.ClassicSelectView_classic_select_view_max_height,0);
         typedArray.recycle();
 
     }
@@ -68,8 +70,8 @@ public class ClassicSelectView extends AppCompatTextView implements View.OnClick
         mClassfiyBeanList.addAll(classfiyBeanList);
     }
 
-    public void setListMaxHeight(int listMaxHeight) {
-        mListMaxHeight = listMaxHeight;
+    public void setSelectViewContentMaxHeight(int maxHeight) {
+        mSelectViewContentMaxHeight = maxHeight;
     }
 
     private void initInnerData() {
@@ -122,15 +124,14 @@ public class ClassicSelectView extends AppCompatTextView implements View.OnClick
     public void onClick(final View v) {
       //### bgShow();//
 
-        if (onContentViewChangeListener != null) {
-            onContentViewChangeListener.onContentViewShow();
+        if (listener != null) {
+            listener.onSelectViewShow();
         }
-
 
         if (v.getTag() != null) {
             mDefaultKey = String.valueOf(v.getTag());
         }
-        myPopupwindow = new ClassicSelectPopupWindow(mContext, mClassfiyBeanList, mDefaultKey, mListMaxHeight
+        myPopupwindow = new ClassicSelectPopupWindow(mContext, mClassfiyBeanList, mDefaultKey, mSelectViewContentMaxHeight
                 ,mSelectViewMarginLeft,mSelectViewMarginRight);
 
         //  myPopupwindow.set
@@ -151,8 +152,8 @@ public class ClassicSelectView extends AppCompatTextView implements View.OnClick
                 if (key != null && !key.equals("") && key.contains(FIX_KEY_DEFAULT)) {
                     keyWithOutFix = key.replace(FIX_KEY_DEFAULT, "");
                 }
-                if (onContentViewChangeListener != null) {
-                    onContentViewChangeListener.onContentViewItemSeleted(key, keyWithOutFix, name);
+                if (listener != null) {
+                    listener.onItemSelected(key, keyWithOutFix, name);
                 }
             }
         });
@@ -161,27 +162,30 @@ public class ClassicSelectView extends AppCompatTextView implements View.OnClick
             @Override
             public void onDismiss() {
              //####    bgClear(); //
-                if (onContentViewChangeListener != null) {
-                    onContentViewChangeListener.onContentViewDismiss();
+                if (listener != null) {
+                    listener.onSelectViewDismiss();
                 }
             }
         });
 
     }
 
-    public interface OnContentViewChangeListener {
-        void onContentViewShow();
+    public  abstract static class  OnSelectViewStatusChangeListener {
+        public void onSelectViewShow(){
 
-        void onContentViewDismiss();
+        }
+        public void onSelectViewDismiss(){
 
-        void onContentViewItemSeleted(String key, String keyWithOutFix, String name);
+        }
+        public void onItemSelected(String key, String keyWithOutFix, String name){
+
+        }
     }
 
-    public void setOnContentViewChangeListener(OnContentViewChangeListener onContentViewChangeListener) {
-        this.onContentViewChangeListener = onContentViewChangeListener;
+    public  void setOnSelectViewStatusChangeListener(OnSelectViewStatusChangeListener listener) {
+        this.listener = listener;
     }
-
-    private OnContentViewChangeListener onContentViewChangeListener;
+    private OnSelectViewStatusChangeListener listener;
 
 
     /**
